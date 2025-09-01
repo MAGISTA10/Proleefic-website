@@ -1,115 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 The Proleefic - Game Store</title>
-<style>
-/* GENERAL */
-body { font-family: 'Segoe UI', sans-serif; background: #0d0d0d; color: #fff; margin:0; padding:0; overflow-x:hidden;}
-h1,h2{margin:0;}
-a{color:#fff; text-decoration:none;}
-/* HEADER */
-header{background:#1f1f1f; padding:20px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.5);}
-header h1{font-size:2em;}
-/* GRID */
-.container{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px;}
-.card{background:#1c1c1c; border-radius:20px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.5); cursor:pointer; transition:transform 0.3s;}
-.card:hover{transform:scale(1.05);}
-.card img{width:100%; height:200px; object-fit:cover;}
-.card-body{padding:15px;}
-.card-body .title{font-size:18px; font-weight:bold; margin-bottom:5px;}
-.card-body .details{font-size:14px; margin-bottom:5px;}
-.card-body .rating{color:gold; font-weight:bold; margin-bottom:10px;}
-.btn{display:inline-block; padding:10px 20px; background:#a855f7; border-radius:10px; font-weight:bold; transition:0.3s;}
-.btn:hover{background:#9333ea;}
-/* GAME PAGE */
-.game-page{display:none; padding:20px; animation:fadeIn 0.5s;}
-.game-page img{width:100%; max-height:400px; object-fit:cover; border-radius:20px; margin-bottom:20px;}
-.back-btn{display:inline-block; margin-top:20px; background:#f97316; color:#fff; padding:10px 20px; border-radius:10px; transition:0.3s;}
-.back-btn:hover{background:#ea580c;}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔥 Popular Mobile Games</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 2.5rem;
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: url('https://example.com/hero-image.jpg') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    /* Game Cards Grid */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #1c1c1c;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 15px;
+      text-align: center;
+    }
+    .card-body h3 {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+    .card-body p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+    .card-body .rating {
+      color: gold;
+      font-weight: bold;
+    }
+    .card-body a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #a855f7;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .card-body a:hover {
+      background: #9333ea;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #222;
+      border-radius: 15px;
+      padding: 20px;
+      width: 80%;
+      max-width: 800px;
+      text-align: center;
+    }
+    .modal-content img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .modal-content h2 {
+      margin: 20px 0;
+      font-size: 2rem;
+    }
+    .modal-content p {
+      font-size: 1rem;
+      margin: 10px 0;
+    }
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-<h1>🔥 The Proleefic - Top Mobile Games</h1>
-</header>
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>🔥 Popular Mobile Games</h1>
+  </div>
 
-<div class="container" id="gameGrid">
-  <!-- Free Fire -->
-  <div class="card" onclick="openGamePage('freefirePage')">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Free_Fire_cover_art.jpg/220px-Free_Fire_cover_art.jpg" alt="Free Fire">
-    <div class="card-body">
-      <div class="title">Free Fire</div>
-      <div class="details">Android | iOS</div>
-      <div class="details">Size: 580MB</div>
-      <div class="rating">⭐ 4.7</div>
+  <!-- Game Cards -->
+  <div class="container">
+    <!-- Free Fire -->
+    <div class="card" onclick="openModal('free-fire')">
+      <img src="https://example.com/free-fire.jpg" alt="Free Fire">
+      <div class="card-body">
+        <h3>Free Fire</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 580MB</p>
+        <p class="rating">⭐ 4.7</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- FIFA 26 -->
+    <div class="card" onclick="openModal('fifa-26')">
+      <img src="https://example.com/fifa-26.jpg" alt="FIFA 26">
+      <div class="card-body">
+        <h3>FIFA 26</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 1.2GB</p>
+        <p class="rating">⭐ 4.6</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- Roblox -->
+    <div class="card" onclick="openModal('roblox')">
+      <img src="https://example.com/roblox.jpg" alt="Roblox">
+      <div class="card-body">
+        <h3>Roblox</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 600MB</p>
+        <p class="rating">⭐ 4.5</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- Minecraft -->
+    <div class="card" onclick="openModal('minecraft')">
+      <img src="https://example.com/minecraft.jpg" alt="Minecraft">
+      <div class="card-body">
+        <h3>Minecraft</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 0.9GB</p>
+        <p class="rating">⭐ 4.4</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- Brawl Stars -->
+    <div class="card" onclick="openModal('brawl-stars')">
+      <img src="https://example.com/brawl-stars.jpg" alt="Brawl Stars">
+      <div class="card-body">
+        <h3>Brawl Stars</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 350MB</p>
+        <p class="rating">⭐ 4.6</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- eFootball 26 -->
+    <div class="card" onclick="openModal('efootball-26')">
+      <img src="https://example.com/efootball-26.jpg" alt="eFootball 26">
+      <div class="card-body">
+        <h3>eFootball 26</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 1.5GB</p>
+        <p class="rating">⭐ 4.3</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- COD Mobile -->
+    <div class="card" onclick="openModal('cod-mobile')">
+      <img src="https://example.com/cod-mobile.jpg" alt="COD Mobile">
+      <div class="card-body">
+        <h3>COD Mobile</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 2.1GB</p>
+        <p class="rating">⭐ 4.5</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- PUBG Mobile -->
+    <div class="card" onclick="openModal('pubg-mobile')">
+      <img src="https://example.com/pubg-mobile.jpg" alt="PUBG Mobile">
+      <div class="card-body">
+        <h3>PUBG Mobile</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 1.8GB</p>
+        <p class="rating">⭐ 4.6</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- Fortnite -->
+    <div class="card" onclick="openModal('fortnite')">
+      <img src="https://example.com/fortnite.jpg" alt="Fortnite">
+      <div class="card-body">
+        <h3>Fortnite</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 2.5GB</p>
+        <p class="rating">⭐ 4.7</p>
+        <a href="#">⬇ Install</a>
+      </div>
+    </div>
+
+    <!-- Clash Royale -->
+    <div class="card" onclick="openModal('clash-royale')">
+      <img src="https://example.com/clash-royale.jpg" alt="Clash Royale">
+      <div class="card-body">
+        <h3>Clash Royale</h3>
+        <p>Devices: Android | iOS</p>
+        <p>Size: 300MB</p>
+        <p class="rating">⭐ 4.8</p>
+        <a href="#">⬇ Install</a>
+      </div>
     </div>
   </div>
 
-  <!-- FIFA 26 -->
-  <div class="card" onclick="openGamePage('fifaPage')">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/FIFA_23_cover_art.jpg/220px-FIFA_23_cover_art.jpg" alt="FIFA 26">
-    <div class="card-body">
-      <div class="title">FIFA 26</div>
-      <div class="details">Android | iOS</div>
-      <div class="details">Size: 1.2GB</div>
-      <div class="rating">⭐ 4.6</div>
-    </div>
-  </div>
-
-  <!-- Roblox -->
-  <div class="card" onclick="openGamePage('robloxPage')">
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Roblox_logo_2022.svg/220px-Roblox_logo_2022.svg.png" alt="Roblox">
-    <div class="card-body">
-      <div class="title">Roblox</div>
-      <div class="details">Android | iOS</div>
-      <div class="details">Size: 600MB</div>
-      <div class="rating">⭐ 4.5</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- GAME PAGES -->
-<div class="game-page" id="freefirePage">
-  <h2>Free Fire</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Free_Fire_cover_art.jpg/600px-Free_Fire_cover_art.jpg" alt="Free Fire">
-  <p>Free Fire is a fast-paced battle royale game where you fight to be the last one standing. Choose your landing spot, gather weapons, and defeat your enemies in thrilling matches. Perfect for players who love action and strategy.</p>
-  <a href="#" class="btn">⬇ Download Free Fire</a><br>
-  <a href="#" class="back-btn" onclick="backToGrid()">⬅ Back to Games</a>
-</div>
-
-<div class="game-page" id="fifaPage">
-  <h2>FIFA 26</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/FIFA_23_cover_art.jpg/600px-FIFA_23_cover_art.jpg" alt="FIFA 26">
-  <p>Experience realistic football gameplay with FIFA 26. Play with real teams and players, compete in tournaments, and challenge friends online. Stunning graphics make it feel like you're on the pitch!</p>
-  <a href="#" class="btn">⬇ Download FIFA 26</a><br>
-  <a href="#" class="back-btn" onclick="backToGrid()">⬅ Back to Games</a>
-</div>
-
-<div class="game-page" id="robloxPage">
-  <h2>Roblox</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Roblox_logo_2022.svg/600px-Roblox_logo_2022.svg.png" alt="Roblox">
-  <p>Roblox lets you explore, create, and play millions of games made by other users. Build your worlds, socialize, and enjoy endless entertainment.</p>
-  <a href="#" class="btn">⬇ Download Roblox</a><br>
-  <a href="#" class="back-btn" onclick="backToGrid()">⬅ Back to Games</a>
-</div>
-
-<script>
-function openGamePage(id){
-  document.getElementById('gameGrid').style.display='none';
-  document.getElementById(id).style.display='block';
-  window.scrollTo(0,0);
-}
-function backToGrid(){
-  document.getElementById('gameGrid').style.display='grid';
-  document.querySelectorAll('.game-page').forEach(page=>page.style.display='none');
-  window.scrollTo(0,0);
-}
-</script>
-
-</body>
-</html>
+  <!-- Modal Templates -->
+  <div id="free-fire" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('free-fire')">&times;</span>
+      <img src="https://example.com/free-fire.jpg" alt="Free Fire">
+      <h2
+::contentReference[oaicite:0]{index=0}
+ 
