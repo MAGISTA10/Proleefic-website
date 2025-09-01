@@ -1,206 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proleefic Game Offers</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<style>
-body{margin:0;font-family:'Montserrat',sans-serif;background:#111;color:#fff;scroll-behavior:smooth;}
-header{padding:20px;text-align:center;background:rgba(0,0,0,0.5);}
-header h1{font-size:2.5em;background:linear-gradient(90deg,#ffd700,#ff4d6d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-nav{display:flex;justify-content:center;flex-wrap:wrap;background:#222;padding:10px;}
-nav a{color:#ffd700;margin:5px 15px;text-decoration:none;font-weight:bold;transition:0.3s;}
-nav a:hover{color:#ff4d6d;}
-section{padding:60px 20px;text-align:center;border-bottom:1px solid #333;}
-section h2{font-size:2em;margin-bottom:20px;color:#ffd700;}
-section img{width:250px;border-radius:15px;margin-bottom:20px;}
-section p{font-size:1.1em;margin-bottom:20px;}
-section ul{list-style-type:disc;margin-left:20px;text-align:left;display:inline-block;}
-button{padding:12px 35px;font-size:1em;border:none;border-radius:50px;cursor:pointer;background:linear-gradient(45deg,#ff4d6d,#ffd700,#00ffe4);color:#1f1c2c;box-shadow:0 0 20px #ffd700;transition:0.3s;margin-top:10px;}
-button:hover{transform:scale(1.05);box-shadow:0 0 40px #ff4d6d;}
-.review{background:rgba(255,255,255,0.05);padding:10px;border-radius:12px;margin:10px auto;max-width:500px;}
-.stars{color:#ffd700;margin-bottom:10px;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1c1c1c;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .details {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    .rating {
+      margin: 10px 0;
+      color: gold;
+      font-weight: bold;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #a855f7;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #9333ea;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-<h1>Proleefic Game Offers</h1>
-</header>
+  <h1>Game Store</h1>
+  <div class="container">
 
-<nav>
-<a href="#freefire">Free Fire</a>
-<a href="#roblox">Roblox</a>
-<a href="#efootball26">eFootball 26</a>
-<a href="#fifa">FIFA</a>
-<a href="#codm">CODM</a>
-<a href="#genshin">Genshin Impact</a>
-<a href="#pubg">PUBG Mobile</a>
-<a href="#amongus">Among Us</a>
-<a href="#clash">Clash of Clans</a>
-<a href="#mobilelegends">Mobile Legends</a>
-</nav>
+    <div class="card">
+      <img src="https://play-lh.googleusercontent.com/Qij7u6tN_Pu2vReTSF3xVYxUOj5i7JldCJY6-FQzItf1X_BN9mW5W-8PXsH2O8CjOQ=w240-h480-rw" alt="Car dealership">
+      <div class="title">Car dealership tycoo</div>
+      <div class="details">Devices: Android | iOS</div>
+      <div class="details">Size: 293mb</div>
+      <div class="rating">⭐ 6.5</div>
+      <a href="#" class="btn">⬇ Install</a>
+    </div>
 
-<!-- Free Fire -->
-<section id="freefire">
-<h2>Free Fire</h2>
-<img src="https://staticg.sportskeeda.com/editor/2023/02/9e0df-16771474423807-1920.jpg" alt="Free Fire">
-<p>Fast-Paced Battle Royale: Survive and be the last player standing in this action-packed game.</p>
-<ul>
-<li>Intense 10-minute matches</li>
-<li>Realistic weapons and maps</li>
-<li>Customizable characters and skins</li>
-<li>Squad up with friends</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_1'">Download & Claim Offer</button>
-<div class="review">"Best battle royale I’ve played! ★★★★★"</div>
-<div class="review">"Addictive and super fun! ★★★★☆"</div>
-</section>
+    <div class="card">
+      <img src="https://play-lh.googleusercontent.com/IdzXzeuL2vNKn1q5U2E-3IPz4J9Y1fG8LdzqkXGyv4WRV05ycfNMoV3bM1qdA5mYrA=w240-h480-rw" alt="Dragon Ball">
+      <div class="title">Dragon ball fighterz</div>
+      <div class="details">Devices: Android | iOS</div>
+      <div class="details">Size: 157mb</div>
+      <div class="rating">⭐ 4.8</div>
+      <a href="#" class="btn">⬇ Install</a>
+    </div>
 
-<!-- Roblox -->
-<section id="roblox">
-<h2>Roblox</h2>
-<img src="https://www.roblox.com/Thumbs/Avatar.ashx?userId=1&width=420&height=420&format=png" alt="Roblox">
-<p>Create, Play & Explore: Millions of worlds built by users. Build games or play community creations.</p>
-<ul>
-<li>Create your own games</li>
-<li>Play millions of community-made worlds</li>
-<li>Customize your avatar</li>
-<li>Socialize with friends</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_2'">Download & Claim Offer</button>
-<div class="review">"Roblox sparks creativity and fun! ★★★★☆"</div>
-<div class="review">"Endless games to explore. ★★★★★"</div>
-</section>
+    <div class="card">
+      <img src="https://play-lh.googleusercontent.com/RHf0t2Xf2Xl2vTjgiC2ZjZbWpjSlmP5JrTrUFiWmC5h4dBMSkBR0s1kQ3q5h8a9Dkg=w240-h480-rw" alt="BeamNG">
+      <div class="title">BeamNG Drive</div>
+      <div class="details">Devices: Android | iOS</div>
+      <div class="details">Size: 364mb</div>
+      <div class="rating">⭐ 4.6</div>
+      <a href="#" class="btn">⬇ Install</a>
+    </div>
 
-<!-- eFootball 26 -->
-<section id="efootball26">
-<h2>eFootball 26</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/EA_Sports_eFootball_2022_logo.png/220px-EA_Sports_eFootball_2022_logo.png" alt="eFootball 26">
-<p>Realistic football gameplay with top teams and players. Compete globally and become a football legend.</p>
-<ul>
-<li>Play with famous football clubs</li>
-<li>Realistic player movements</li>
-<li>Online multiplayer matches</li>
-<li>Seasonal events and tournaments</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_3'">Download & Claim Offer</button>
-<div class="review">"Best football simulation! ★★★★☆"</div>
-<div class="review">"Realistic and fun gameplay! ★★★★★"</div>
-</section>
+    <div class="card">
+      <img src="https://play-lh.googleusercontent.com/jG9-D4nPwoI9EozEBWNsX5knI6nKmtbX6PqN0vbP63RHfqt21V0Kx5S7jwFZkMLW8A=w240-h480-rw" alt="Minecraft">
+      <div class="title">Minecraft</div>
+      <div class="details">Devices: Android | iOS</div>
+      <div class="details">Size: 0.9GB</div>
+      <div class="rating">⭐ 4.4</div>
+      <a href="#" class="btn">⬇ Install</a>
+    </div>
 
-<!-- FIFA -->
-<section id="fifa">
-<h2>FIFA</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/FIFA_23_logo.svg/220px-FIFA_23_logo.svg.png" alt="FIFA">
-<p>Ultimate football simulation. Build your dream team, compete in leagues, and win championships.</p>
-<ul>
-<li>Build your Ultimate Team</li>
-<li>Online tournaments</li>
-<li>Realistic stadiums and matches</li>
-<li>Manage transfers and team tactics</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_4'">Download & Claim Offer</button>
-<div class="review">"FIFA is amazing for football fans! ★★★★★"</div>
-<div class="review">"Gameplay is smooth and exciting ★★★★☆"</div>
-</section>
-
-<!-- CODM -->
-<section id="codm">
-<h2>Call of Duty Mobile</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/4/46/Call_of_Duty_Mobile_cover.jpg" alt="CODM">
-<p>Classic FPS action with multiplayer battles and battle royale mode. Team up or go solo.</p>
-<ul>
-<li>Multiple maps and modes</li>
-<li>Battle Royale mode</li>
-<li>Customizable loadouts</li>
-<li>Clan and tournaments</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_5'">Download & Claim Offer</button>
-<div class="review">"CODM is my favorite FPS game! ★★★★★"</div>
-<div class="review">"Amazing graphics and controls ★★★★☆"</div>
-</section>
-
-<!-- Genshin Impact -->
-<section id="genshin">
-<h2>Genshin Impact</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/0/0d/Genshin_Impact_cover_art.jpg" alt="Genshin Impact">
-<p>Open-world RPG with stunning visuals and elemental combat system. Explore, battle, and unlock characters.</p>
-<ul>
-<li>Open world exploration</li>
-<li>Elemental combat system</li>
-<li>Character progression and story</li>
-<li>Co-op multiplayer mode</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_6'">Download & Claim Offer</button>
-<div class="review">"Beautiful game with endless adventures ★★★★★"</div>
-<div class="review">"Gameplay is deep and fun ★★★★☆"</div>
-</section>
-
-<!-- PUBG Mobile -->
-<section id="pubg">
-<h2>PUBG Mobile</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/0/0c/PUBG_Mobile.jpg" alt="PUBG Mobile">
-<p>Battle royale action with realistic maps and competitive gameplay. Be the last one alive!</p>
-<ul>
-<li>Classic Battle Royale</li>
-<li>Multiple weapons and vehicles</li>
-<li>Team and solo modes</li>
-<li>Seasonal events and skins</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_7'">Download & Claim Offer</button>
-<div class="review">"PUBG Mobile is super competitive ★★★★★"</div>
-<div class="review">"Addictive and realistic ★★★★☆"</div>
-</section>
-
-<!-- Among Us -->
-<section id="amongus">
-<h2>Among Us</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.png" alt="Among Us">
-<p>Social deduction game where you identify the impostor among crewmates. Play with friends or online players.</p>
-<ul>
-<li>Multiplayer online game</li>
-<li>Identify impostors in your crew</li>
-<li>Customizable characters</li>
-<li>Multiple maps and tasks</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_8'">Download & Claim Offer</button>
-<div class="review">"Among Us is so much fun with friends ★★★★☆"</div>
-<div class="review">"Great party game ★★★★☆"</div>
-</section>
-
-<!-- Clash of Clans -->
-<section id="clash">
-<h2>Clash of Clans</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/3/34/Clash_of_Clans.png" alt="Clash of Clans">
-<p>Build your village, train troops, and battle other players worldwide. Strategy is key!</p>
-<ul>
-<li>Base building and upgrading</li>
-<li>Train troops and defenses</li>
-<li>Join clans and participate in wars</li>
-<li>Events and seasonal challenges</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_9'">Download & Claim Offer</button>
-<div class="review">"Clash of Clans is super strategic ★★★★★"</div>
-<div class="review">"Love the clan wars ★★★★☆"</div>
-</section>
-
-<!-- Mobile Legends -->
-<section id="mobilelegends">
-<h2>Mobile Legends</h2>
-<img src="https://upload.wikimedia.org/wikipedia/en/6/63/Mobile_Legends_Bang_Bang_cover.png" alt="Mobile Legends">
-<p>Fast-paced MOBA game with 5v5 battles. Team up and dominate the arena.</p>
-<ul>
-<li>5v5 real-time battles</li>
-<li>Multiple heroes and abilities</li>
-<li>Ranked matches and tournaments</li>
-<li>Regular updates and events</li>
-</ul>
-<button onclick="window.location.href='YOUR_CPA_LINK_10'">Download & Claim Offer</button>
-<div class="review">"Mobile Legends is intense and fun ★★★★★"</div>
-<div class="review">"Great MOBA experience on mobile ★★★★☆"</div>
-</section>
+  </div>
 
 </body>
 </html>
