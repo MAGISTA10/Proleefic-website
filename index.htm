@@ -6,137 +6,91 @@
 <title>🔥 The Proleefic - Game Store</title>
 <style>
 body { font-family: Arial, sans-serif; background: #111; color: #fff; margin: 0; padding: 20px; }
-h1 { text-align: center; margin-bottom: 20px; position: relative; }
-h1::after { content: "🎮"; position: absolute; right: -40px; animation: bounce 2s infinite; }
-@keyframes bounce { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
+h1 { text-align: center; margin-bottom: 20px; }
 .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 20px; }
-.card { background: #1c1c1c; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: transform 0.2s; cursor: pointer; }
-.card:hover { transform: scale(1.05); }
+.card { background: #1c1c1c; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); cursor: pointer; transition: transform 0.2s;}
+.card:hover { transform: scale(1.05);}
 .card img { width: 120px; height: 120px; object-fit: cover; border-radius: 20px; margin-bottom: 15px; }
 .title { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
 .details { font-size: 14px; margin: 5px 0; }
 .rating { margin: 10px 0; color: gold; font-weight: bold; }
-.modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background: rgba(0,0,0,0.95); }
-.modal-content { background: #222; margin: 5% auto; padding: 20px; border-radius: 10px; width: 90%; max-width: 600px; text-align: center; position: relative; }
-.close { color: #fff; position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer; }
-img.game-img { width: 100%; border-radius: 10px; margin: 10px 0; }
-.btn { display: inline-block; padding: 10px 20px; background: #a855f7; color: #fff; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s; }
-.btn:hover { background: #9333ea; }
+.btn { display: inline-block; padding: 10px 20px; background: #a855f7; color: #fff; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s;}
+.btn:hover { background: #9333ea;}
+/* Game Page */
+.game-page { display: none; padding: 20px; text-align: center; }
+.game-page img { width: 80%; max-width: 400px; border-radius: 20px; margin-bottom: 20px;}
+.back-btn { display:inline-block; margin-top:20px; background:#f97316; color:#fff; text-decoration:none; padding:10px 20px; border-radius:10px; font-weight:bold; transition:0.3s;}
+.back-btn:hover { background:#ea580c;}
 </style>
 </head>
 <body>
 
 <h1>🔥 The Proleefic - Top Games</h1>
-<div class="container">
 
-<!-- Game Cards -->
-<div class="card" onclick="openModal('freefire')">
-<img src="https://play-lh.googleusercontent.com/08FJ_9teSvC77BR_1uXQj9ldrvzF4G6Llyi72tHQMfezA6n4FZAhQW0ko3aaIgZDvQ=w240-h480-rw" alt="Free Fire">
-<div class="title">Free Fire</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 580MB</div>
-<div class="rating">⭐ 4.7</div>
+<div class="container" id="gameGrid">
+  <!-- Example Game Card -->
+  <div class="card" onclick="openGamePage('freefire')">
+    <img src="https://play-lh.googleusercontent.com/08FJ_9teSvC77BR_1uXQj9ldrvzF4G6Llyi72tHQMfezA6n4FZAhQW0ko3aaIgZDvQ=w240-h480-rw" alt="Free Fire">
+    <div class="title">Free Fire</div>
+    <div class="details">Android | iOS</div>
+    <div class="details">Size: 580MB</div>
+    <div class="rating">⭐ 4.7</div>
+  </div>
+
+  <div class="card" onclick="openGamePage('fifa')">
+    <img src="https://play-lh.googleusercontent.com/6U4XZqDMMzT5ovXZDDXnOM0aQVuVh6M4OYs2jDjHwIGUoa_UZeeHZgl3yipQfSgPRQ=w240-h480-rw" alt="FIFA 26">
+    <div class="title">FIFA 26</div>
+    <div class="details">Android | iOS</div>
+    <div class="details">Size: 1.2GB</div>
+    <div class="rating">⭐ 4.6</div>
+  </div>
+
+  <div class="card" onclick="openGamePage('roblox')">
+    <img src="https://play-lh.googleusercontent.com/GOJcQ_dQThXhMop1BqOg5w6UZG7SrqKxMxV_wa8Cczl4Z_c6UqL3HDl56KnY9Xk7iw=w240-h480-rw" alt="Roblox">
+    <div class="title">Roblox</div>
+    <div class="details">Android | iOS</div>
+    <div class="details">Size: 600MB</div>
+    <div class="rating">⭐ 4.5</div>
+  </div>
+  <!-- Add more cards similarly -->
 </div>
 
-<div class="card" onclick="openModal('fifa')">
-<img src="https://play-lh.googleusercontent.com/6U4XZqDMMzT5ovXZDDXnOM0aQVuVh6M4OYs2jDjHwIGUoa_UZeeHZgl3yipQfSgPRQ=w240-h480-rw" alt="FIFA 26">
-<div class="title">FIFA 26</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 1.2GB</div>
-<div class="rating">⭐ 4.6</div>
+<!-- Game Pages -->
+<div class="game-page" id="freefirePage">
+  <h2>Free Fire</h2>
+  <img src="https://play-lh.googleusercontent.com/08FJ_9teSvC77BR_1uXQj9ldrvzF4G6Llyi72tHQMfezA6n4FZAhQW0ko3aaIgZDvQ=w240-h480-rw" alt="Free Fire">
+  <p>Free Fire is a fast-paced battle royale game where you fight to be the last one standing. Choose your landing spot, gather weapons, and defeat your enemies in thrilling matches. Perfect for players who love action and strategy.</p>
+  <a href="#" class="btn">⬇ Download Free Fire</a><br>
+  <a href="#" class="back-btn" onclick="backToGrid()">⬅ Back to Games</a>
 </div>
 
-<div class="card" onclick="openModal('roblox')">
-<img src="https://play-lh.googleusercontent.com/GOJcQ_dQThXhMop1BqOg5w6UZG7SrqKxMxV_wa8Cczl4Z_c6UqL3HDl56KnY9Xk7iw=w240-h480-rw" alt="Roblox">
-<div class="title">Roblox</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 600MB</div>
-<div class="rating">⭐ 4.5</div>
+<div class="game-page" id="fifaPage">
+  <h2>FIFA 26</h2>
+  <img src="https://play-lh.googleusercontent.com/6U4XZqDMMzT5ovXZDDXnOM0aQVuVh6M4OYs2jDjHwIGUoa_UZeeHZgl3yipQfSgPRQ=w240-h480-rw" alt="FIFA 26">
+  <p>Experience the thrill of football with FIFA 26. Play with real teams and players, compete in tournaments, and challenge your friends online. Realistic graphics and gameplay make it the ultimate football experience.</p>
+  <a href="#" class="btn">⬇ Download FIFA 26</a><br>
+  <a href="#" class="back-btn" onclick="backToGrid()">⬅ Back to Games</a>
 </div>
 
-<div class="card" onclick="openModal('minecraft')">
-<img src="https://play-lh.googleusercontent.com/Idv3WrkTSSM6hf7cdF6flZJxxiC9Jq4RgrR6_YozM7GdbjKZ7r6uRzSx_M0e6J7wZQ=w240-h480-rw" alt="Minecraft">
-<div class="title">Minecraft</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 0.9GB</div>
-<div class="rating">⭐ 4.4</div>
+<div class="game-page" id="robloxPage">
+  <h2>Roblox</h2>
+  <img src="https://play-lh.googleusercontent.com/GOJcQ_dQThXhMop1BqOg5w6UZG7SrqKxMxV_wa8Cczl4Z_c6UqL3HDl56KnY9Xk7iw=w240-h480-rw" alt="Roblox">
+  <p>Roblox lets you explore, create, and play games made by millions of people worldwide. Build your own worlds, socialize with friends, and enjoy endless entertainment.</p>
+  <a href="#" class="btn">⬇ Download Roblox</a><br>
+  <a href="#" class="back-btn" onclick="backToGrid()">⬅ Back to Games</a>
 </div>
-
-<div class="card" onclick="openModal('brawlstars')">
-<img src="https://play-lh.googleusercontent.com/vLr1VHK2HvMbnTkZ6DJp81E5cEES-Vij6A5-ZB5i8xS5EDXqO8ZAwXbRRArN2kGVGmg=w240-h480-rw" alt="Brawl Stars">
-<div class="title">Brawl Stars</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 350MB</div>
-<div class="rating">⭐ 4.6</div>
-</div>
-
-<div class="card" onclick="openModal('efootball')">
-<img src="https://play-lh.googleusercontent.com/d0gJzU5UdU7s93l4hPvZ2ZP8p2i0LK_f6PbHw4RhGiGzXJK0epx5cPvzPg4s05L7Sg=w240-h480-rw" alt="eFootball 26">
-<div class="title">eFootball 26</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 1.5GB</div>
-<div class="rating">⭐ 4.3</div>
-</div>
-
-<div class="card" onclick="openModal('codm')">
-<img src="https://play-lh.googleusercontent.com/jUAv-FYx3sPplclI47EjBv5zykgjfhGjCzxjY9g5jLZNT38weCKbXl4L5E9rhUe2Aw=w240-h480-rw" alt="COD Mobile">
-<div class="title">COD Mobile</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 2.1GB</div>
-<div class="rating">⭐ 4.5</div>
-</div>
-
-<div class="card" onclick="openModal('pubg')">
-<img src="https://play-lh.googleusercontent.com/-jwZmFgk4oUZwrfC5tOr4s9QXwV8M8XcD0vMIk0YslAQs2pOtXEN6Dqtz9zv1U7z7w=w240-h480-rw" alt="PUBG Mobile">
-<div class="title">PUBG Mobile</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 1.8GB</div>
-<div class="rating">⭐ 4.6</div>
-</div>
-
-<div class="card" onclick="openModal('fortnite')">
-<img src="https://play-lh.googleusercontent.com/qkX0i9xOkHc4xZh62S42XuJXYJ49u1i2H5vHHPkHH0Uk7x8U__Uvl6rL3zW7aWqTtA=w240-h480-rw" alt="Fortnite">
-<div class="title">Fortnite</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 3GB</div>
-<div class="rating">⭐ 4.5</div>
-</div>
-
-<div class="card" onclick="openModal('clashroyale')">
-<img src="https://play-lh.googleusercontent.com/9eo0mH0uV74S2OgHxLx5gM2FPEkE7Nq1aZ4l7Y_QXvSxxnF9h1RZssjRgrx6lbHhBQ=w240-h480-rw" alt="Clash Royale">
-<div class="title">Clash Royale</div>
-<div class="details">Android | iOS</div>
-<div class="details">Size: 150MB</div>
-<div class="rating">⭐ 4.4</div>
-</div>
-
-</div>
-
-<!-- Modals -->
-<div id="freefire" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('freefire')">&times;</span><h2>Free Fire</h2><img class="game-img" src="https://play-lh.googleusercontent.com/08FJ_9teSvC77BR_1uXQj9ldrvzF4G6Llyi72tHQMfezA6n4FZAhQW0ko3aaIgZDvQ=w240-h480-rw"><p>Fast-paced battle royale game. Choose your landing spot, gather weapons, and defeat enemies in thrilling matches.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="fifa" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('fifa')">&times;</span><h2>FIFA 26</h2><img class="game-img" src="https://play-lh.googleusercontent.com/6U4XZqDMMzT5ovXZDDXnOM0aQVuVh6M4OYs2jDjHwIGUoa_UZeeHZgl3yipQfSgPRQ=w240-h480-rw"><p>Experience real football with latest gameplay features and online matches with friends.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="roblox" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('roblox')">&times;</span><h2>Roblox</h2><img class="game-img" src="https://play-lh.googleusercontent.com/GOJcQ_dQThXhMop1BqOg5w6UZG7SrqKxMxV_wa8Cczl4Z_c6UqL3HDl56KnY9Xk7iw=w240-h480-rw"><p>Explore, create, and play games made by millions of people worldwide.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="minecraft" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('minecraft')">&times;</span><h2>Minecraft</h2><img class="game-img" src="https://play-lh.googleusercontent.com/Idv3WrkTSSM6hf7cdF6flZJxxiC9Jq4RgrR6_YozM7GdbjKZ7r6uRzSx_M0e6J7wZQ=w240-h480-rw"><p>Create and explore your own worlds block by block.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="brawlstars" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('brawlstars')">&times;</span><h2>Brawl Stars</h2><img class="game-img" src="https://play-lh.googleusercontent.com/vLr1VHK2HvMbnTkZ6DJp81E5cEES-Vij6A5-ZB5i8xS5EDXqO8ZAwXbRRArN2kGVGmg=w240-h480-rw"><p>Fast-paced 3v3 multiplayer battles with unique characters.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="efootball" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('efootball')">&times;</span><h2>eFootball 26</h2><img class="game-img" src="https://play-lh.googleusercontent.com/d0gJzU5UdU7s93l4hPvZ2ZP8p2i0LK_f6PbHw4RhGiGzXJK0epx5cPvzPg4s05L7Sg=w240-h480-rw"><p>Realistic football simulation with up-to-date teams and leagues.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="codm" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('codm')">&times;</span><h2>COD Mobile</h2><img class="game-img" src="https://play-lh.googleusercontent.com/jUAv-FYx3sPplclI47EjBv5zykgjfhGjCzxjY9g5jLZNT38weCKbXl4L5E9rhUe2Aw=w240-h480-rw"><p>Intense FPS experience on mobile with solo and multiplayer modes.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="pubg" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('pubg')">&times;</span><h2>PUBG Mobile</h2><img class="game-img" src="https://play-lh.googleusercontent.com/-jwZmFgk4oUZwrfC5tOr4s9QXwV8M8XcD0vMIk0YslAQs2pOtXEN6Dqtz9zv1U7z7w=w240-h480-rw"><p>Classic battle royale experience with realistic graphics and large maps.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="fortnite" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('fortnite')">&times;</span><h2>Fortnite</h2><img class="game-img" src="https://play-lh.googleusercontent.com/qkX0i9xOkHc4xZh62S42XuJXYJ49u1i2H5vHHPkHH0Uk7x8U__Uvl6rL3zW7aWqTtA=w240-h480-rw"><p>Popular battle royale game with creative building mechanics.</p><a href="#" class="btn">⬇ Install</a></div></div>
-
-<div id="clashroyale" class="modal"><div class="modal-content"><span class="close" onclick="closeModal('clashroyale')">&times;</span><h2>Clash Royale</h2><img class="game-img" src="https://play-lh.googleusercontent.com/9eo0mH0uV74S2OgHxLx5gM2FPEkE7Nq1aZ4l7Y_QXvSxxnF9h1RZssjRgrx6lbHhBQ=w240-h480-rw"><p>Real-time strategy game with cards and multiplayer duels.</p><a href="#" class="btn">⬇ Install</a></div></div>
 
 <script>
-function openModal(id){document.getElementById(id).style.display='block';}
-function closeModal(id){document.getElementById(id).style.display='none';}
-window.onclick=function(event){if(event.target.classList.contains('modal')){event.target.style.display='none';}}
+function openGamePage(gameId){
+  document.getElementById('gameGrid').style.display='none';
+  document.getElementById(gameId+'Page').style.display='block';
+}
+
+function backToGrid(){
+  document.getElementById('gameGrid').style.display='grid';
+  let pages = document.querySelectorAll('.game-page');
+  pages.forEach(p=>p.style.display='none');
+}
 </script>
 
 </body>
