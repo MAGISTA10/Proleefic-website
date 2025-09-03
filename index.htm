@@ -1,163 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tesla Hero Slider</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top Mobile Games 2025</title>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      overflow-x: hidden;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #121212;
+        color: #fff;
     }
-    .slider {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
+    header {
+        text-align: center;
+        padding: 20px;
+        background: #1f1f1f;
+        font-size: 2em;
+        font-weight: bold;
     }
-    .slide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 100%;
-      opacity: 0;
-      transition: all 1s ease;
-      background-size: cover;
-      background-position: center;
+    .games-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
     }
-    .slide.active {
-      left: 0;
-      opacity: 1;
+    .game-card {
+        background: #1e1e1e;
+        border-radius: 10px;
+        width: 220px;
+        cursor: pointer;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.2s;
     }
-    .slide.inactive {
-      left: -100%;
-      opacity: 0;
+    .game-card:hover {
+        transform: scale(1.05);
     }
-    .content {
-      position: absolute;
-      bottom: 15%;
-      left: 10%;
-      z-index: 10;
-      max-width: 500px;
+    .game-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
     }
-    .content h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
+    .game-card h3 {
+        margin: 10px 0 5px;
     }
-    .content p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+    .game-card p {
+        margin: 0 10px 10px;
+        font-size: 0.9em;
+        color: #aaa;
     }
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background: #e82127;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      color: #fff;
-      transition: background 0.3s ease;
+    .game-page {
+        display: none;
+        padding: 20px;
     }
-    .btn:hover {
-      background: #c0181f;
+    .game-page.active {
+        display: block;
     }
-    .controls {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 15px;
-      z-index: 20;
+    .back-btn {
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background: #ff5555;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #fff;
     }
-    .dot {
-      width: 12px;
-      height: 12px;
-      background: #aaa;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    .game-page img {
+        width: 100%;
+        max-width: 500px;
+        display: block;
+        margin-bottom: 20px;
+        border-radius: 10px;
     }
-    .dot.active {
-      background: #fff;
-    }
-  </style>
+</style>
 </head>
 <body>
-  <div class="slider">
-    <div class="slide active" style="background-image: url('https://tesla-cdn.thron.com/delivery/public/image/tesla/9baf709f-b1c8-47c0-bae9-b67d3b7a9e62/bvlatuR/std/2880x1800/_25-Hero-D');">
-      <div class="content">
-        <h1>Model S</h1>
-        <p>Plaid Beyond Ludicrous</p>
-        <a href="#" class="btn">Order Now</a>
-      </div>
+
+<header>Top Mobile Games 2025</header>
+
+<div class="games-container">
+    <div class="game-card" onclick="openGame('freefire')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/Free_Fire_Logo.png" alt="Free Fire">
+        <h3>Free Fire</h3>
+        <p>Action-packed battle royale for mobile devices.</p>
     </div>
-    <div class="slide" style="background-image: url('https://tesla-cdn.thron.com/delivery/public/image/tesla/8795e62f-98f5-4d3a-8f5f-14c23a8613a5/bvlatuR/std/2880x1800/_25-Hero-D');">
-      <div class="content">
-        <h1>Model 3</h1>
-        <p>Electric for Everyone</p>
-        <a href="#" class="btn">Explore</a>
-      </div>
+    <div class="game-card" onclick="openGame('roblox')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/1a/Roblox_Logo_2022.png" alt="Roblox">
+        <h3>Roblox</h3>
+        <p>Creative game platform with endless adventures.</p>
     </div>
-    <div class="slide" style="background-image: url('https://tesla-cdn.thron.com/delivery/public/image/tesla/6db6c9f3-ec24-49ee-b8f6-6c3f2827e81e/bvlatuR/std/2880x1800/_25-Hero-D');">
-      <div class="content">
-        <h1>Model X</h1>
-        <p>Power Meets Utility</p>
-        <a href="#" class="btn">Discover</a>
-      </div>
+    <div class="game-card" onclick="openGame('fifa26')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3e/FIFA_23_cover_art.jpg" alt="FIFA 26">
+        <h3>FIFA 26</h3>
+        <p>Realistic football simulation for sports fans.</p>
     </div>
-    <div class="slide" style="background-image: url('https://tesla-cdn.thron.com/delivery/public/image/tesla/6b7b38b8-5b4c-46cb-bb95-6fc6e40c6e02/bvlatuR/std/2880x1800/_25-Hero-D');">
-      <div class="content">
-        <h1>Model Y</h1>
-        <p>Versatility and Performance</p>
-        <a href="#" class="btn">Order Now</a>
-      </div>
-    </div>
-    <div class="controls"></div>
-  </div>
+</div>
 
-  <script>
-    const slides = document.querySelectorAll('.slide');
-    const controls = document.querySelector('.controls');
-    let current = 0;
+<!-- Game Pages -->
+<div id="freefire" class="game-page">
+    <button class="back-btn" onclick="backToList()">← Back</button>
+    <h2>Free Fire</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/Free_Fire_Logo.png" alt="Free Fire">
+    <p>Free Fire is a fast-paced battle royale game for mobile where players fight to survive on an island until the last one stands. Enjoy solo, duo, or squad matches!</p>
+</div>
 
-    // Create dots
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => showSlide(i));
-      controls.appendChild(dot);
-    });
+<div id="roblox" class="game-page">
+    <button class="back-btn" onclick="backToList()">← Back</button>
+    <h2>Roblox</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/en/1/1a/Roblox_Logo_2022.png" alt="Roblox">
+    <p>Roblox is a global platform that brings people together through play. Explore millions of 3D experiences created by a global community.</p>
+</div>
 
-    const dots = document.querySelectorAll('.dot');
+<div id="fifa26" class="game-page">
+    <button class="back-btn" onclick="backToList()">← Back</button>
+    <h2>FIFA 26</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/en/3/3e/FIFA_23_cover_art.jpg" alt="FIFA 26">
+    <p>FIFA 26 offers realistic football gameplay, new game modes, and stunning graphics. Build your team, compete in leagues, and experience football like never before!</p>
+</div>
 
-    function showSlide(index) {
-      slides[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      slides[current].classList.add('inactive');
+<script>
+function openGame(gameId) {
+    document.querySelectorAll('.games-container').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.game-page').forEach(el => el.classList.remove('active'));
+    document.getElementById(gameId).classList.add('active');
+}
 
-      current = index;
+function backToList() {
+    document.querySelectorAll('.game-page').forEach(el => el.classList.remove('active'));
+    document.querySelector('.games-container').style.display = 'flex';
+}
+</script>
 
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
-    }
-
-    function nextSlide() {
-      let next = current + 1 < slides.length ? current + 1 : 0;
-      showSlide(next);
-    }
-
-    setInterval(nextSlide, 5000);
-  </script>
 </body>
 </html>
