@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Match Game</title>
+    <title>Online Multiplayer Snake</title>
     <style>
         * {
             margin: 0;
@@ -13,298 +13,729 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #333;
+            color: white;
         }
         
         .game-container {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             padding: 25px;
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             text-align: center;
         }
         
         h1 {
-            color: #6e8efb;
+            color: #fdbb2d;
             margin-bottom: 15px;
-            font-size: 2.5rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .online-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .online-dot {
+            width: 12px;
+            height: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
         
         .game-info {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding: 10px 15px;
-            background: #f0f4ff;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .player-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        #player1 .player-color {
+            background: #4CAF50;
+        }
+        
+        #player2 .player-color {
+            background: #2196F3;
+        }
+        
+        #player3 .player-color {
+            background: #9C27B0;
+        }
+        
+        #player4 .player-color {
+            background: #FF9800;
         }
         
         .game-board {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            place-items: center;
             margin: 0 auto;
         }
         
-        .card {
-            height: 100px;
-            background: #6e8efb;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: transparent;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-            position: relative;
-        }
-        
-        .card.flipped {
-            transform: rotateY(180deg);
-            background: white;
-            color: #6e8efb;
-        }
-        
-        .card.matched {
-            background: #a7f3d0;
-            color: #047857;
-            transform: scale(0.95);
-            cursor: default;
-        }
-        
-        .card::before {
-            content: "?";
-            position: absolute;
-            color: white;
-            font-size: 2rem;
-        }
-        
-        .card.flipped::before {
-            content: "";
+        canvas {
+            background: #111;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
         
         .controls {
-            margin-top: 25px;
+            margin: 25px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .control-group {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 250px;
+        }
+        
+        .control-group h3 {
+            margin-bottom: 10px;
+            color: #fdbb2d;
+        }
+        
+        .control-key {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            min-width: 40px;
         }
         
         button {
-            background: #6e8efb;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            margin: 10px;
         }
         
         button:hover {
-            background: #5a7df9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.4);
         }
         
         button:active {
             transform: translateY(0);
         }
         
-        .win-message {
-            margin-top: 20px;
-            font-size: 1.5rem;
-            color: #047857;
-            font-weight: bold;
-            height: 30px;
+        #start-btn {
+            background: linear-gradient(to right, #2196F3, #0D47A1);
         }
         
-        @media (max-width: 500px) {
-            .card {
-                height: 80px;
-                font-size: 1.5rem;
-            }
-            
-            .game-board {
-                gap: 8px;
-            }
-            
+        .game-message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            height: 30px;
+            color: #fdbb2d;
+        }
+        
+        .chat-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .chat-messages {
+            height: 100px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .chat-input button {
+            padding: 10px 20px;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 600px) {
             h1 {
                 font-size: 2rem;
+            }
+            
+            .game-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .player-controls {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <h1>Memory Match</h1>
+        <h1>Online Multiplayer Snake</h1>
         
-        <div class="game-info">
-            <div class="moves">Moves: <span id="moves-count">0</span></div>
-            <div class="timer">Time: <span id="time">0</span>s</div>
+        <div class="online-indicator">
+            <div class="online-dot"></div>
+            <span>Online: <span id="online-count">4</span> players connected</span>
         </div>
         
-        <div class="game-board" id="game-board">
-            <!-- Cards will be generated here -->
+        <div class="game-info">
+            <div id="player1" class="player">
+                <div class="player-color"></div>
+                <span>You: <span id="score1">0</span></span>
+            </div>
+            <div id="player2" class="player">
+                <div class="player-color"></div>
+                <span>Player2: <span id="score2">0</span></span>
+            </div>
+            <div id="player3" class="player">
+                <div class="player-color"></div>
+                <span>Player3: <span id="score3">0</span></span>
+            </div>
+            <div id="player4" class="player">
+                <div class="player-color"></div>
+                <span>Player4: <span id="score4">0</span></span>
+            </div>
+        </div>
+        
+        <div class="game-board">
+            <canvas id="game-canvas" width="600" height="400"></canvas>
         </div>
         
         <div class="controls">
-            <button id="reset-btn">New Game</button>
+            <div class="player-controls">
+                <div class="control-group">
+                    <h3>Your Controls</h3>
+                    <div>
+                        <span class="control-key">W</span>
+                        <span class="control-key">A</span>
+                        <span class="control-key">S</span>
+                        <span class="control-key">D</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <button id="start-btn">Find Match</button>
+                <button id="reset-btn">Leave Game</button>
+            </div>
         </div>
         
-        <div class="win-message" id="win-message"></div>
+        <div class="chat-container">
+            <h3>Game Chat</h3>
+            <div class="chat-messages" id="chat-messages">
+                <div>System: Welcome to Online Snake! Press 'Find Match' to start.</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+        
+        <div class="game-message" id="game-message"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const gameBoard = document.getElementById('game-board');
-            const movesCount = document.getElementById('moves-count');
-            const timerElement = document.getElementById('time');
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            const score1Element = document.getElementById('score1');
+            const score2Element = document.getElementById('score2');
+            const score3Element = document.getElementById('score3');
+            const score4Element = document.getElementById('score4');
+            const startButton = document.getElementById('start-btn');
             const resetButton = document.getElementById('reset-btn');
-            const winMessage = document.getElementById('win-message');
+            const gameMessage = document.getElementById('game-message');
+            const onlineCountElement = document.getElementById('online-count');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-btn');
             
-            let cards = [];
-            let hasFlippedCard = false;
-            let lockBoard = false;
-            let firstCard, secondCard;
-            let moves = 0;
-            let matchedPairs = 0;
-            let timer = 0;
-            let timerInterval;
+            // Game constants
+            const GRID_SIZE = 20;
+            const GAME_SPEED = 100;
             
-            // Emoji icons for the cards
-            const cardIcons = ['🌟', '🚀', '🌈', '🍕', '🐱', '🎮', '🌎', '🎸'];
+            // Players
+            let players = [
+                {
+                    id: 'player1',
+                    body: [{x: 10, y: 10}],
+                    direction: {x: 0, y: 0},
+                    color: '#4CAF50',
+                    score: 0,
+                    isPlayer: true,
+                    isAI: false
+                },
+                {
+                    id: 'player2',
+                    body: [{x: 30, y: 10}],
+                    direction: {x: 0, y: 0},
+                    color: '#2196F3',
+                    score: 0,
+                    isPlayer: false,
+                    isAI: true
+                },
+                {
+                    id: 'player3',
+                    body: [{x: 10, y: 30}],
+                    direction: {x: 0, y: 0},
+                    color: '#9C27B0',
+                    score: 0,
+                    isPlayer: false,
+                    isAI: true
+                },
+                {
+                    id: 'player4',
+                    body: [{x: 30, y: 30}],
+                    direction: {x: 0, y: 0},
+                    color: '#FF9800',
+                    score: 0,
+                    isPlayer: false,
+                    isAI: true
+                }
+            ];
+            
+            // Food
+            let food = [{x: 15, y: 15}, {x: 25, y: 25}, {x: 15, y: 35}, {x: 35, y: 15}];
+            
+            let gameRunning = false;
+            let gameInterval = null;
             
             // Initialize game
             function initGame() {
-                clearInterval(timerInterval);
-                moves = 0;
-                matchedPairs = 0;
-                timer = 0;
-                movesCount.textContent = moves;
-                timerElement.textContent = timer;
-                winMessage.textContent = '';
-                lockBoard = false;
-                
-                // Double the icons for matching pairs
-                const gameCards = [...cardIcons, ...cardIcons];
-                
-                // Shuffle cards
-                gameCards.sort(() => Math.random() - 0.5);
-                
-                // Clear the game board
-                gameBoard.innerHTML = '';
-                
-                // Create cards
-                gameCards.forEach((icon, index) => {
-                    const card = document.createElement('div');
-                    card.classList.add('card');
-                    card.dataset.icon = icon;
-                    card.dataset.index = index;
-                    card.addEventListener('click', flipCard);
-                    gameBoard.appendChild(card);
+                players.forEach((player, index) => {
+                    player.body = [{x: 10 + index * 7, y: 10 + index * 7}];
+                    player.direction = {x: 0, y: 0};
+                    player.score = 0;
+                    
+                    document.getElementById(`score${index + 1}`).textContent = '0';
                 });
                 
-                cards = document.querySelectorAll('.card');
+                generateFood();
                 
-                // Start timer
-                timerInterval = setInterval(() => {
-                    timer++;
-                    timerElement.textContent = timer;
-                }, 1000);
+                gameMessage.textContent = '';
+                addChatMessage('System', 'Game ready. Press Find Match to start!');
+                
+                drawGame();
             }
             
-            // Flip card function
-            function flipCard() {
-                if (lockBoard) return;
-                if (this === firstCard) return;
-                if (this.classList.contains('matched')) return;
+            // Start game
+            function startGame() {
+                if (gameRunning) return;
                 
-                this.classList.add('flipped');
-                this.textContent = this.dataset.icon;
+                // Set initial directions
+                players[0].direction = {x: 1, y: 0};
+                players[1].direction = {x: -1, y: 0};
+                players[2].direction = {x: 0, y: 1};
+                players[3].direction = {x: 0, y: -1};
                 
-                if (!hasFlippedCard) {
-                    // First click
-                    hasFlippedCard = true;
-                    firstCard = this;
-                    return;
-                }
+                gameRunning = true;
+                gameMessage.textContent = 'Game Started!';
                 
-                // Second click
-                secondCard = this;
-                moves++;
-                movesCount.textContent = moves;
+                addChatMessage('System', 'Match found! Game starting...');
+                simulateOtherPlayersJoining();
                 
-                checkForMatch();
+                gameInterval = setInterval(() => {
+                    updateGame();
+                    drawGame();
+                }, GAME_SPEED);
             }
             
-            // Check if cards match
-            function checkForMatch() {
-                let isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
-                
-                if (isMatch) {
-                    disableCards();
-                    matchedPairs++;
-                    
-                    // Check if all pairs are matched
-                    if (matchedPairs === cardIcons.length) {
-                        clearInterval(timerInterval);
-                        setTimeout(() => {
-                            winMessage.textContent = `You won in ${moves} moves and ${timer} seconds!`;
-                        }, 1000);
+            // Simulate other players joining (for online simulation)
+            function simulateOtherPlayersJoining() {
+                setTimeout(() => addChatMessage('Player2', 'gl hf!'), 800);
+                setTimeout(() => addChatMessage('Player3', 'ready!'), 1500);
+                setTimeout(() => addChatMessage('Player4', 'let\'s go!'), 2200);
+            }
+            
+            // Update game state
+            function updateGame() {
+                // Move players
+                players.forEach(player => {
+                    if (player.isAI) {
+                        moveAI(player);
+                    } else {
+                        movePlayer(player);
                     }
+                });
+                
+                // Check for collisions
+                players.forEach(player => {
+                    checkCollisions(player);
+                });
+                
+                // Check for food consumption
+                players.forEach(player => {
+                    checkFood(player);
+                });
+            }
+            
+            // Move player
+            function movePlayer(player) {
+                const head = {...player.body[0]};
+                head.x += player.direction.x;
+                head.y += player.direction.y;
+                
+                // Wrap around the edges
+                if (head.x < 0) head.x = canvas.width / GRID_SIZE - 1;
+                if (head.x >= canvas.width / GRID_SIZE) head.x = 0;
+                if (head.y < 0) head.y = canvas.height / GRID_SIZE - 1;
+                if (head.y >= canvas.height / GRID_SIZE) head.y = 0;
+                
+                player.body.unshift(head);
+                
+                // Remove tail if not growing
+                if (!player.grow) {
+                    player.body.pop();
                 } else {
-                    unflipCards();
+                    player.grow = false;
                 }
             }
             
-            // Disable matched cards
-            function disableCards() {
-                firstCard.classList.add('matched');
-                secondCard.classList.add('matched');
-                firstCard.removeEventListener('click', flipCard);
-                secondCard.removeEventListener('click', flipCard);
-                
-                resetBoard();
-            }
-            
-            // Unflip cards if they don't match
-            function unflipCards() {
-                lockBoard = true;
-                
-                setTimeout(() => {
-                    firstCard.classList.remove('flipped');
-                    secondCard.classList.remove('flipped');
-                    firstCard.textContent = '';
-                    secondCard.textContent = '';
+            // Move AI player
+            function moveAI(player) {
+                // Simple AI: sometimes change direction randomly
+                if (Math.random() < 0.05) {
+                    const directions = [{x: 0, y: -1}, {x: 1, y: 0}, {x: 0, y: 1}, {x: -1, y: 0}];
+                    const validDirections = directions.filter(dir => 
+                        dir.x !== -player.direction.x || dir.y !== -player.direction.y
+                    );
                     
-                    resetBoard();
-                }, 1000);
+                    player.direction = validDirections[Math.floor(Math.random() * validDirections.length)];
+                }
+                
+                movePlayer(player);
             }
             
-            // Reset board after each turn
-            function resetBoard() {
-                [hasFlippedCard, lockBoard] = [false, false];
-                [firstCard, secondCard] = [null, null];
+            // Check for collisions
+            function checkCollisions(player) {
+                const head = player.body[0];
+                
+                // Check collision with self
+                for (let i = 1; i < player.body.length; i++) {
+                    if (head.x === player.body[i].x && head.y === player.body[i].y) {
+                        playerDie(player);
+                        return;
+                    }
+                }
+                
+                // Check collision with other players
+                players.forEach(otherPlayer => {
+                    if (player !== otherPlayer) {
+                        for (let i = 0; i < otherPlayer.body.length; i++) {
+                            if (head.x === otherPlayer.body[i].x && head.y === otherPlayer.body[i].y) {
+                                playerDie(player);
+                                return;
+                            }
+                        }
+                    }
+                });
             }
             
-            // Reset game
+            // Player die
+            function playerDie(player) {
+                player.body = [{x: -10, y: -10}]; // Move off screen
+                player.direction = {x: 0, y: 0};
+                
+                if (player.isPlayer) {
+                    gameOver('You died! Game over.');
+                } else {
+                    addChatMessage(player.id, 'oops! I died');
+                }
+                
+                // Check if game should end
+                const activePlayers = players.filter(p => p.direction.x !== 0 || p.direction.y !== 0);
+                if (activePlayers.length <= 1) {
+                    if (activePlayers.length === 1 && activePlayers[0].isPlayer) {
+                        gameOver('You win!');
+                    } else {
+                        gameOver('Game over!');
+                    }
+                }
+            }
+            
+            // Check for food consumption
+            function checkFood(player) {
+                const head = player.body[0];
+                
+                for (let i = 0; i < food.length; i++) {
+                    if (head.x === food[i].x && head.y === food[i].y) {
+                        player.score += 10;
+                        player.grow = true;
+                        
+                        document.getElementById(`score${players.indexOf(player) + 1}`).textContent = player.score;
+                        
+                        // Replace food
+                        food[i] = generateFoodPosition();
+                        
+                        if (player.isPlayer) {
+                            addChatMessage('System', 'You collected food! +10 points');
+                        }
+                        
+                        break;
+                    }
+                }
+            }
+            
+            // Generate food at random position
+            function generateFood() {
+                for (let i = 0; i < 4; i++) {
+                    food[i] = generateFoodPosition();
+                }
+            }
+            
+            // Generate a single food position
+            function generateFoodPosition() {
+                let newFood;
+                let validPosition = false;
+                
+                while (!validPosition) {
+                    newFood = {
+                        x: Math.floor(Math.random() * (canvas.width / GRID_SIZE)),
+                        y: Math.floor(Math.random() * (canvas.height / GRID_SIZE))
+                    };
+                    
+                    validPosition = true;
+                    
+                    // Make sure food doesn't spawn on players
+                    for (let player of players) {
+                        for (let segment of player.body) {
+                            if (newFood.x === segment.x && newFood.y === segment.y) {
+                                validPosition = false;
+                                break;
+                            }
+                        }
+                        if (!validPosition) break;
+                    }
+                    
+                    // Make sure food doesn't spawn on other food
+                    if (validPosition) {
+                        for (let f of food) {
+                            if (newFood.x === f.x && newFood.y === f.y) {
+                                validPosition = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                return newFood;
+            }
+            
+            // Draw game
+            function drawGame() {
+                // Clear canvas
+                ctx.fillStyle = '#111';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw food
+                ctx.fillStyle = '#FF5252';
+                food.forEach(f => {
+                    ctx.fillRect(f.x * GRID_SIZE, f.y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+                });
+                
+                // Draw players
+                players.forEach(player => {
+                    drawPlayer(player);
+                });
+            }
+            
+            // Draw player
+            function drawPlayer(player) {
+                for (let i = 0; i < player.body.length; i++) {
+                    const segment = player.body[i];
+                    
+                    // Draw player segment
+                    ctx.fillStyle = player.color;
+                    ctx.fillRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+                    
+                    // Draw border
+                    ctx.strokeStyle = '#000';
+                    ctx.strokeRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+                    
+                    // Draw eyes on head
+                    if (i === 0) {
+                        ctx.fillStyle = '#000';
+                        ctx.beginPath();
+                        
+                        // Adjust eye position based on direction
+                        const eyeOffset = 5;
+                        let eye1X, eye1Y, eye2X, eye2Y;
+                        
+                        if (player.direction.x === 1) { // Right
+                            eye1X = segment.x * GRID_SIZE + GRID_SIZE - 3;
+                            eye1Y = segment.y * GRID_SIZE + eyeOffset;
+                            eye2X = segment.x * GRID_SIZE + GRID_SIZE - 3;
+                            eye2Y = segment.y * GRID_SIZE + GRID_SIZE - eyeOffset;
+                        } else if (player.direction.x === -1) { // Left
+                            eye1X = segment.x * GRID_SIZE + 3;
+                            eye1Y = segment.y * GRID_SIZE + eyeOffset;
+                            eye2X = segment.x * GRID_SIZE + 3;
+                            eye2Y = segment.y * GRID_SIZE + GRID_SIZE - eyeOffset;
+                        } else if (player.direction.y === 1) { // Down
+                            eye1X = segment.x * GRID_SIZE + eyeOffset;
+                            eye1Y = segment.y * GRID_SIZE + GRID_SIZE - 3;
+                            eye2X = segment.x * GRID_SIZE + GRID_SIZE - eyeOffset;
+                            eye2Y = segment.y * GRID_SIZE + GRID_SIZE - 3;
+                        } else { // Up
+                            eye1X = segment.x * GRID_SIZE + eyeOffset;
+                            eye1Y = segment.y * GRID_SIZE + 3;
+                            eye2X = segment.x * GRID_SIZE + GRID_SIZE - eyeOffset;
+                            eye2Y = segment.y * GRID_SIZE + 3;
+                        }
+                        
+                        ctx.arc(eye1X, eye1Y, 2, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        ctx.beginPath();
+                        ctx.arc(eye2X, eye2Y, 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            }
+            
+            // Game over
+            function gameOver(message) {
+                gameRunning = false;
+                clearInterval(gameInterval);
+                gameMessage.textContent = message;
+                
+                if (message.includes('win')) {
+                    addChatMessage('System', 'Congratulations! You won the game!');
+                } else {
+                    addChatMessage('System', 'Game over. Press Find Match to play again!');
+                }
+            }
+            
+            // Add chat message
+            function addChatMessage(sender, message) {
+                const messageElement = document.createElement('div');
+                messageElement.innerHTML = `<b>${sender}:</b> ${message}`;
+                chatMessages.appendChild(messageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Handle keyboard input
+            document.addEventListener('keydown', (e) => {
+                if (!gameRunning) return;
+                
+                // Player controls (WASD)
+                const player = players[0];
+                if (e.key === 'w' && player.direction.y !== 1) {
+                    player.direction = {x: 0, y: -1};
+                } else if (e.key === 's' && player.direction.y !== -1) {
+                    player.direction = {x: 0, y: 1};
+                } else if (e.key === 'a' && player.direction.x !== 1) {
+                    player.direction = {x: -1, y: 0};
+                } else if (e.key === 'd' && player.direction.x !== -1) {
+                    player.direction = {x: 1, y: 0};
+                }
+            });
+            
+            // Send chat message
+            sendButton.addEventListener('click', sendChatMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendChatMessage();
+            });
+            
+            function sendChatMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    addChatMessage('You', message);
+                    chatInput.value = '';
+                    
+                    // Simulate responses
+                    setTimeout(() => {
+                        if (message.toLowerCase().includes('hi') || message.toLowerCase().includes('hello')) {
+                            addChatMessage('Player2', 'hello there!');
+                        } else if (message.toLowerCase().includes('gg')) {
+                            addChatMessage('Player3', 'gg!');
+                        } else if (Math.random() > 0.5) {
+                            const responses = ['nice!', 'lol', 'wow', 'cool', 'oh no!'];
+                            addChatMessage('Player4', responses[Math.floor(Math.random() * responses.length)]);
+                        }
+                    }, 1000);
+                }
+            }
+            
+            // Button event listeners
+            startButton.addEventListener('click', startGame);
             resetButton.addEventListener('click', initGame);
             
-            // Start the game
+            // Initialize the game
             initGame();
+            
+            // Simulate online players count
+            setInterval(() => {
+                onlineCountElement.textContent = Math.floor(3 + Math.random() * 2);
+            }, 5000);
         });
     </script>
 </body>
