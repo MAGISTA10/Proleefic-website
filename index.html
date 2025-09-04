@@ -79,6 +79,7 @@
             font-weight: 600;
             font-size: 18px;
             transition: color 0.3s;
+            cursor: pointer;
         }
         
         nav a:hover {
@@ -88,7 +89,7 @@
         .hero {
             padding: 60px 0;
             text-align: center;
-            background: url('https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231d5679"/><text x="50" y="50" font-family="Arial" font-size="10" fill="%230c2c4a" text-anchor="middle" dominant-baseline="middle">Football Pattern</text></svg>');
             position: relative;
         }
         
@@ -130,6 +131,8 @@
             font-size: 18px;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            border: none;
         }
         
         .btn:hover {
@@ -346,6 +349,7 @@
             text-decoration: none;
             font-weight: bold;
             display: inline-block;
+            cursor: pointer;
         }
         
         footer {
@@ -371,6 +375,7 @@
             color: #fff;
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
         
         .footer-links a:hover {
@@ -380,6 +385,45 @@
         .copyright {
             opacity: 0.7;
             font-size: 14px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #1e3a5f;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal h3 {
+            color: #ff5722;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .modal p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
         
         @media (max-width: 768px) {
@@ -410,10 +454,25 @@
             .matches-grid, .news-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Modal for internal links -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Information</h3>
+            <p id="modalMessage">This is a demonstration website. All links are disabled to prevent external redirects.</p>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -423,12 +482,12 @@
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Live Matches</a></li>
-                        <li><a href="#">Leagues</a></li>
-                        <li><a href="#">News</a></li>
-                        <li><a href="#">Highlights</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a onclick="showModal('Home', 'This would be the home page in a real implementation.')">Home</a></li>
+                        <li><a onclick="showModal('Live Matches', 'This would show live matches in a real implementation.')">Live Matches</a></li>
+                        <li><a onclick="showModal('Leagues', 'This would display different football leagues in a real implementation.')">Leagues</a></li>
+                        <li><a onclick="showModal('News', 'This would show football news in a real implementation.')">News</a></li>
+                        <li><a onclick="showModal('Highlights', 'This would show match highlights in a real implementation.')">Highlights</a></li>
+                        <li><a onclick="showModal('Contact', 'This would show contact information in a real implementation.')">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -440,7 +499,7 @@
             <div class="hero-content">
                 <h1>Watch Football Matches Live Online</h1>
                 <p>Stream the biggest football matches from top leagues around the world in HD quality</p>
-                <a href="#live-stream" class="btn">Watch Live Now</a>
+                <button class="btn" onclick="showModal('Watch Live', 'This would start a live stream in a real implementation.')">Watch Live Now</button>
             </div>
         </div>
     </section>
@@ -457,7 +516,7 @@
                     </div>
                 </div>
                 <div class="stream-wrapper">
-                    <iframe allow="autoplay; encrypted-media" allowfullscreen="true" class="" id="streamFrame" frameborder="0" src="https://pl.buzkora.online/albaplayer/1bein1/?serv=0"></iframe>
+                    <iframe allow="autoplay; encrypted-media" allowfullscreen="true" id="streamFrame" frameborder="0" src="https://pl.buzkora.online/albaplayer/1bein1/?serv=0"></iframe>
                 </div>
             </div>
         </div>
@@ -467,7 +526,7 @@
         <div class="container">
             <h2 class="section-title">Upcoming Matches</h2>
             <div class="matches-grid">
-                <div class="match-card">
+                <div class="match-card" onclick="showModal('Premier League', 'Manchester City vs Liverpool - This match would be available to watch in a real implementation.')">
                     <div class="match-card-header">Premier League</div>
                     <div class="match-card-content">
                         <div class="teams">
@@ -485,7 +544,7 @@
                     </div>
                 </div>
                 
-                <div class="match-card">
+                <div class="match-card" onclick="showModal('La Liga', 'Real Madrid vs Barcelona - This match would be available to watch in a real implementation.')">
                     <div class="match-card-header">La Liga</div>
                     <div class="match-card-content">
                         <div class="teams">
@@ -503,7 +562,7 @@
                     </div>
                 </div>
                 
-                <div class="match-card">
+                <div class="match-card" onclick="showModal('Serie A', 'Juventus vs Inter Milan - This match would be available to watch in a real implementation.')">
                     <div class="match-card-header">Serie A</div>
                     <div class="match-card-content">
                         <div class="teams">
@@ -533,7 +592,7 @@
                     <div class="news-content">
                         <h3 class="news-title">Champions League Quarterfinal Draw Revealed</h3>
                         <p class="news-excerpt">The draw for the UEFA Champions League quarterfinals has been made, setting up some exciting clashes between Europe's top clubs.</p>
-                        <a href="#" class="read-more">Read More →</a>
+                        <span class="read-more" onclick="showModal('Champions League', 'This would show the full article in a real implementation.')">Read More →</span>
                     </div>
                 </div>
                 
@@ -542,7 +601,7 @@
                     <div class="news-content">
                         <h3 class="news-title">Star Striker Set for Record Transfer</h3>
                         <p class="news-excerpt">Reports suggest that a record-breaking transfer is in the works for one of Europe's most sought-after strikers this summer.</p>
-                        <a href="#" class="read-more">Read More →</a>
+                        <span class="read-more" onclick="showModal('Transfer News', 'This would show the full article in a real implementation.')">Read More →</span>
                     </div>
                 </div>
                 
@@ -551,7 +610,7 @@
                     <div class="news-content">
                         <h3 class="news-title">Top Midfielder Out for Season with Injury</h3>
                         <p class="news-excerpt">A key midfielder for a title-chasing team has been ruled out for the remainder of the season after suffering an injury in training.</p>
-                        <a href="#" class="read-more">Read More →</a>
+                        <span class="read-more" onclick="showModal('Injury News', 'This would show the full article in a real implementation.')">Read More →</span>
                     </div>
                 </div>
             </div>
@@ -567,18 +626,56 @@
                 </div>
                 <p>Your destination for high-quality football streams and the latest news from the world of football.</p>
                 <div class="footer-links">
-                    <a href="#">Home</a>
-                    <a href="#">Live Matches</a>
-                    <a href="#">Leagues</a>
-                    <a href="#">News</a>
-                    <a href="#">Highlights</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a onclick="showModal('Home', 'This would be the home page in a real implementation.')">Home</a>
+                    <a onclick="showModal('Live Matches', 'This would show live matches in a real implementation.')">Live Matches</a>
+                    <a onclick="showModal('Leagues', 'This would display different football leagues in a real implementation.')">Leagues</a>
+                    <a onclick="showModal('News', 'This would show football news in a real implementation.')">News</a>
+                    <a onclick="showModal('Highlights', 'This would show match highlights in a real implementation.')">Highlights</a>
+                    <a onclick="showModal('Contact', 'This would show contact information in a real implementation.')">Contact</a>
+                    <a onclick="showModal('Privacy Policy', 'This would show privacy policy in a real implementation.')">Privacy Policy</a>
+                    <a onclick="showModal('Terms of Service', 'This would show terms of service in a real implementation.')">Terms of Service</a>
                 </div>
                 <div class="copyright">© 2023 FootStream. All rights reserved.</div>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Function to show modal instead of external links
+        function showModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+        
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside the content
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+        
+        // Prevent right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        // Prevent iframe from navigating parent
+        const iframe = document.getElementById('streamFrame');
+        iframe.addEventListener('load', function() {
+            try {
+                // This will try to break out of any frame-busting scripts
+                iframe.contentWindow.location.href = iframe.contentWindow.location.href;
+            } catch (e) {
+                // Cross-origin frame, which is expected
+            }
+        });
+    </script>
 </body>
 </html>
