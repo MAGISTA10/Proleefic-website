@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Live Streams - Watch Matches Online</title>
+    <title>FootStream - Watch Live Football Matches</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #ff5722;
+            --primary-dark: #e64a19;
+            --secondary: #03a9f4;
+            --dark: #0c2c4a;
+            --darker: #051a2d;
+            --light: #f5f5f5;
+            --gray: #78909c;
+            --success: #4caf50;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -13,30 +25,30 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0c2c4a, #1d5679);
-            color: #fff;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
+        /* Header Styles */
         header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: rgba(7, 27, 47, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .logo {
@@ -48,23 +60,22 @@
         .logo-icon {
             width: 50px;
             height: 50px;
-            background: #ff5722;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
         }
         
         .logo-text {
             font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-        }
-        
-        .logo-text span {
-            color: #ff5722;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         nav ul {
@@ -74,22 +85,65 @@
         }
         
         nav a {
-            color: #fff;
+            color: var(--light);
             text-decoration: none;
             font-weight: 600;
-            font-size: 18px;
-            transition: color 0.3s;
+            font-size: 17px;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 50px;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--primary);
+            background: rgba(255, 87, 34, 0.1);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        nav a:hover {
-            color: #ff5722;
+        .btn-primary {
+            background: var(--primary);
+            color: white;
         }
         
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--gray);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
         .hero {
-            padding: 60px 0;
+            padding: 80px 0;
             text-align: center;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231d5679"/><text x="50" y="50" font-family="Arial" font-size="10" fill="%230c2c4a" text-anchor="middle" dominant-baseline="middle">Football Pattern</text></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23051a2d"/><circle cx="20" cy="20" r="5" fill="%230c2c4a"/><circle cx="60" cy="40" r="8" fill="%230c2c4a"/><circle cx="80" cy="70" r="6" fill="%230c2c4a"/><circle cx="40" cy="80" r="10" fill="%230c2c4a"/></svg>');
             position: relative;
         }
         
@@ -100,84 +154,102 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: radial-gradient(circle at top right, rgba(3, 169, 244, 0.2), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(255, 87, 34, 0.2), transparent 40%);
         }
         
         .hero-content {
             position: relative;
             z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, var(--light), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .hero p {
-            font-size: 20px;
-            max-width: 800px;
-            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #cfd8dc;
         }
         
-        .btn {
-            display: inline-block;
-            background: #ff5722;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            border: none;
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         
-        .btn:hover {
-            background: #ff7043;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        }
-        
+        /* Stream Section */
         .stream-section {
-            padding: 50px 0;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 50px 20px;
+            background: rgba(7, 27, 47, 0.7);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .section-title {
             text-align: center;
-            font-size: 36px;
+            font-size: 2.5rem;
             margin-bottom: 40px;
-            color: #ff5722;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
         
         .stream-container {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(13, 38, 63, 0.8);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .stream-header {
-            background: #1e3a5f;
-            padding: 15px 20px;
+            background: linear-gradient(to right, var(--dark), var(--darker));
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
         .live-badge {
-            background: #e53935;
+            background: var(--success);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 6px 18px;
+            border-radius: 50px;
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         
         .live-badge::before {
@@ -201,13 +273,15 @@
         }
         
         .match-title {
-            font-size: 20px;
+            font-size: 1.4rem;
             font-weight: bold;
+            color: var(--primary);
         }
         
         .match-league {
-            font-size: 16px;
-            opacity: 0.8;
+            font-size: 1rem;
+            opacity: 0.9;
+            color: var(--light);
         }
         
         .stream-wrapper {
@@ -226,37 +300,54 @@
             border: none;
         }
         
+        .stream-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Matches Section */
         .matches {
-            padding: 50px 0;
+            padding: 60px 20px;
+            background: rgba(7, 27, 47, 0.5);
         }
         
         .matches-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-top: 40px;
         }
         
         .match-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            background: linear-gradient(to bottom right, rgba(13, 38, 63, 0.8), rgba(7, 27, 47, 0.9));
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
         }
         
         .match-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 87, 34, 0.2);
         }
         
         .match-card-header {
-            background: #1e3a5f;
+            background: linear-gradient(to right, var(--dark), var(--darker));
             padding: 15px;
             text-align: center;
             font-weight: bold;
+            color: var(--secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .match-card-content {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
         }
         
@@ -264,129 +355,234 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .team {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            flex: 1;
         }
         
         .team-logo {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 1.8rem;
+            color: var(--light);
+            border: 2px solid var(--gray);
+            transition: all 0.3s;
+        }
+        
+        .match-card:hover .team-logo {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .team-name {
+            font-weight: 600;
+            font-size: 1.1rem;
         }
         
         .vs {
             font-weight: bold;
-            color: #ff5722;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin: 0 10px;
         }
         
         .match-time {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-top: 10px;
+            font-size: 1rem;
+            color: var(--gray);
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            display: inline-block;
         }
         
+        /* News Section */
         .news {
-            padding: 50px 0;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 60px 20px;
+            background: rgba(7, 27, 47, 0.7);
         }
         
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         
         .news-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            background: linear-gradient(to bottom right, rgba(13, 38, 63, 0.8), rgba(7, 27, 47, 0.9));
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
         }
         
         .news-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(3, 169, 244, 0.2);
         }
         
         .news-image {
             height: 200px;
-            background: #2c3e50;
+            background: var(--dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.3);
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 87, 34, 0.2), rgba(3, 169, 244, 0.2));
         }
         
         .news-content {
-            padding: 20px;
+            padding: 25px;
         }
         
         .news-title {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #ff5722;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            line-height: 1.4;
         }
         
         .news-excerpt {
-            margin-bottom: 15px;
-            opacity: 0.9;
+            margin-bottom: 20px;
+            color: #cfd8dc;
+            line-height: 1.6;
         }
         
         .read-more {
-            color: #ff5722;
+            color: var(--secondary);
             text-decoration: none;
             font-weight: bold;
-            display: inline-block;
-            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
         }
         
+        .read-more:hover {
+            gap: 10px;
+            color: var(--primary);
+        }
+        
+        /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 40px 0;
-            text-align: center;
+            background: var(--darker);
+            padding: 60px 20px 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .footer-content {
             display: flex;
             flex-direction: column;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
+        }
+        
+        .footer-text {
+            color: #cfd8dc;
+            line-height: 1.6;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
         }
         
         .footer-links {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .footer-links h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
         }
         
         .footer-links a {
-            color: #fff;
+            color: #cfd8dc;
             text-decoration: none;
-            transition: color 0.3s;
-            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .footer-links a:hover {
-            color: #ff5722;
+            color: var(--primary);
+            gap: 12px;
         }
         
-        .copyright {
-            opacity: 0.7;
-            font-size: 14px;
+        .footer-links a i {
+            font-size: 0.8rem;
         }
         
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -398,26 +594,56 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
         
         .modal-content {
-            background: #1e3a5f;
-            padding: 30px;
-            border-radius: 10px;
+            background: linear-gradient(to bottom right, var(--dark), var(--darker));
+            padding: 40px;
+            border-radius: 15px;
             max-width: 500px;
             width: 90%;
             text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-modal:hover {
+            background: var(--primary);
+        }
+        
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
         
         .modal h3 {
-            color: #ff5722;
+            color: var(--secondary);
             margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 1.8rem;
         }
         
         .modal p {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             line-height: 1.6;
+            color: #cfd8dc;
         }
         
         .modal-buttons {
@@ -426,6 +652,7 @@
             gap: 15px;
         }
         
+        /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -433,22 +660,27 @@
             }
             
             nav ul {
-                gap: 15px;
+                gap: 10px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
             
+            nav a {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
+            
             .hero h1 {
-                font-size: 32px;
+                font-size: 2.5rem;
             }
             
             .hero p {
-                font-size: 18px;
+                font-size: 1rem;
             }
             
             .teams {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
             }
             
             .matches-grid, .news-grid {
@@ -458,6 +690,19 @@
             .modal-buttons {
                 flex-direction: column;
             }
+            
+            .stream-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .match-info {
+                text-align: center;
+            }
+            
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -465,58 +710,89 @@
     <!-- Modal for internal links -->
     <div class="modal" id="infoModal">
         <div class="modal-content">
+            <div class="close-modal" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal-icon">
+                <i class="fas fa-futbol"></i>
+            </div>
             <h3 id="modalTitle">Information</h3>
             <p id="modalMessage">This is a demonstration website. All links are disabled to prevent external redirects.</p>
             <div class="modal-buttons">
-                <button class="btn" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" onclick="closeModal()">
+                    <i class="fas fa-check"></i> Continue Browsing
+                </button>
             </div>
         </div>
     </div>
 
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">⚽</div>
-                    <div class="logo-text">Foot<span>Stream</span></div>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a onclick="showModal('Home', 'This would be the home page in a real implementation.')">Home</a></li>
-                        <li><a onclick="showModal('Live Matches', 'This would show live matches in a real implementation.')">Live Matches</a></li>
-                        <li><a onclick="showModal('Leagues', 'This would display different football leagues in a real implementation.')">Leagues</a></li>
-                        <li><a onclick="showModal('News', 'This would show football news in a real implementation.')">News</a></li>
-                        <li><a onclick="showModal('Highlights', 'This would show match highlights in a real implementation.')">Highlights</a></li>
-                        <li><a onclick="showModal('Contact', 'This would show contact information in a real implementation.')">Contact</a></li>
-                    </ul>
-                </nav>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">⚽</div>
+                <div class="logo-text">FootStream</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class="active" onclick="showModal('Home', 'Welcome to FootStream - your destination for live football streaming.')">Home</a></li>
+                    <li><a onclick="showModal('Live Matches', 'Browse all available live matches and schedules.')">Live Matches</a></li>
+                    <li><a onclick="showModal('Leagues', 'Explore matches from Premier League, La Liga, Serie A, and more.')">Leagues</a></li>
+                    <li><a onclick="showModal('News', 'Latest football news and updates from around the world.')">News</a></li>
+                    <li><a onclick="showModal('Highlights', 'Watch highlights from recent matches and events.')">Highlights</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline" onclick="showModal('Login', 'Login to access premium features and personalized content.')">
+                    <i class="fas fa-user"></i> Login
+                </button>
+                <button class="btn btn-primary" onclick="showModal('Sign Up', 'Create an account to get access to all live matches.')">
+                    <i class="fas fa-plus"></i> Sign Up
+                </button>
             </div>
         </div>
     </header>
 
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Watch Football Matches Live Online</h1>
-                <p>Stream the biggest football matches from top leagues around the world in HD quality</p>
-                <button class="btn" onclick="showModal('Watch Live', 'This would start a live stream in a real implementation.')">Watch Live Now</button>
+        <div class="hero-content">
+            <h1>Watch Football Matches Live Online</h1>
+            <p>Stream the biggest football matches from top leagues around the world in HD quality. Never miss a goal with our real-time updates.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="showModal('Watch Live', 'Start watching live matches with a premium account.')">
+                    <i class="fas fa-play"></i> Watch Live Now
+                </button>
+                <button class="btn btn-outline" onclick="showModal('Schedule', 'View the upcoming match schedule and set reminders.')">
+                    <i class="fas fa-calendar"></i> View Schedule
+                </button>
             </div>
         </div>
     </section>
 
-    <section id="live-stream" class="stream-section">
+    <section class="stream-section">
         <div class="container">
             <h2 class="section-title">Live Football Stream</h2>
             <div class="stream-container">
                 <div class="stream-header">
-                    <div class="live-badge">LIVE</div>
+                    <div class="live-badge">
+                        <i class="fas fa-broadcast-tower"></i> LIVE
+                    </div>
                     <div class="match-info">
                         <div class="match-title">Champions League Final</div>
-                        <div class="match-league">UEFA Champions League</div>
+                        <div class="match-league">UEFA Champions League • Today, 20:00 GMT</div>
                     </div>
                 </div>
                 <div class="stream-wrapper">
                     <iframe allow="autoplay; encrypted-media" allowfullscreen="true" id="streamFrame" frameborder="0" src="https://pl.buzkora.online/albaplayer/1bein1/?serv=0"></iframe>
+                </div>
+                <div class="stream-controls">
+                    <button class="btn btn-outline" onclick="showModal('Quality', 'Change streaming quality based on your connection.')">
+                        <i class="fas fa-tv"></i> Quality
+                    </button>
+                    <button class="btn btn-outline" onclick="showModal('Fullscreen', 'Switch to fullscreen mode for immersive viewing.')">
+                        <i class="fas fa-expand"></i> Fullscreen
+                    </button>
+                    <button class="btn btn-outline" onclick="showModal('Share', 'Share this stream with other football fans.')">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
                 </div>
             </div>
         </div>
@@ -587,30 +863,42 @@
         <div class="container">
             <h2 class="section-title">Latest Football News</h2>
             <div class="news-grid">
-                <div class="news-card">
-                    <div class="news-image">Champions League Preview</div>
+                <div class="news-card" onclick="showModal('Champions League', 'This would show the full article in a real implementation.')">
+                    <div class="news-image">
+                        <i class="fas fa-trophy"></i>
+                    </div>
                     <div class="news-content">
                         <h3 class="news-title">Champions League Quarterfinal Draw Revealed</h3>
                         <p class="news-excerpt">The draw for the UEFA Champions League quarterfinals has been made, setting up some exciting clashes between Europe's top clubs.</p>
-                        <span class="read-more" onclick="showModal('Champions League', 'This would show the full article in a real implementation.')">Read More →</span>
+                        <span class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
                 
-                <div class="news-card">
-                    <div class="news-image">Player Transfer</div>
+                <div class="news-card" onclick="showModal('Transfer News', 'This would show the full article in a real implementation.')">
+                    <div class="news-image">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
                     <div class="news-content">
                         <h3 class="news-title">Star Striker Set for Record Transfer</h3>
                         <p class="news-excerpt">Reports suggest that a record-breaking transfer is in the works for one of Europe's most sought-after strikers this summer.</p>
-                        <span class="read-more" onclick="showModal('Transfer News', 'This would show the full article in a real implementation.')">Read More →</span>
+                        <span class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
                 
-                <div class="news-card">
-                    <div class="news-image">Injury Update</div>
+                <div class="news-card" onclick="showModal('Injury News', 'This would show the full article in a real implementation.')">
+                    <div class="news-image">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
                     <div class="news-content">
                         <h3 class="news-title">Top Midfielder Out for Season with Injury</h3>
                         <p class="news-excerpt">A key midfielder for a title-chasing team has been ruled out for the remainder of the season after suffering an injury in training.</p>
-                        <span class="read-more" onclick="showModal('Injury News', 'This would show the full article in a real implementation.')">Read More →</span>
+                        <span class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -618,24 +906,60 @@
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo">
-                    <div class="logo-icon">⚽</div>
-                    <div class="logo-text">Foot<span>Stream</span></div>
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <div class="logo-icon">⚽</div>
+                        <div class="logo-text">FootStream</div>
+                    </div>
+                    <p class="footer-text">Your destination for high-quality football streams and the latest news from the world of football.</p>
+                    <div class="social-links">
+                        <a class="social-link" onclick="showModal('Facebook', 'Follow us on Facebook for the latest updates.')">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="social-link" onclick="showModal('Twitter', 'Follow us on Twitter for real-time match updates.')">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="social-link" onclick="showModal('Instagram', 'Follow us on Instagram for behind-the-scenes content.')">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="social-link" onclick="showModal('YouTube', 'Subscribe to our YouTube channel for match highlights.')">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
-                <p>Your destination for high-quality football streams and the latest news from the world of football.</p>
+                
                 <div class="footer-links">
-                    <a onclick="showModal('Home', 'This would be the home page in a real implementation.')">Home</a>
-                    <a onclick="showModal('Live Matches', 'This would show live matches in a real implementation.')">Live Matches</a>
-                    <a onclick="showModal('Leagues', 'This would display different football leagues in a real implementation.')">Leagues</a>
-                    <a onclick="showModal('News', 'This would show football news in a real implementation.')">News</a>
-                    <a onclick="showModal('Highlights', 'This would show match highlights in a real implementation.')">Highlights</a>
-                    <a onclick="showModal('Contact', 'This would show contact information in a real implementation.')">Contact</a>
-                    <a onclick="showModal('Privacy Policy', 'This would show privacy policy in a real implementation.')">Privacy Policy</a>
-                    <a onclick="showModal('Terms of Service', 'This would show terms of service in a real implementation.')">Terms of Service</a>
+                    <h3>Navigation</h3>
+                    <a onclick="showModal('Home', 'Return to the homepage.')"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a onclick="showModal('Live Matches', 'Browse all available live matches.')"><i class="fas fa-chevron-right"></i> Live Matches</a>
+                    <a onclick="showModal('Leagues', 'Explore matches by league.')"><i class="fas fa-chevron-right"></i> Leagues</a>
+                    <a onclick="showModal('News', 'Latest football news.')"><i class="fas fa-chevron-right"></i> News</a>
+                    <a onclick="showModal('Highlights', 'Watch match highlights.')"><i class="fas fa-chevron-right"></i> Highlights</a>
                 </div>
-                <div class="copyright">© 2023 FootStream. All rights reserved.</div>
+                
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <a onclick="showModal('FAQ', 'Frequently asked questions.')"><i class="fas fa-chevron-right"></i> FAQ</a>
+                    <a onclick="showModal('Contact', 'Get in touch with our support team.')"><i class="fas fa-chevron-right"></i> Contact Us</a>
+                    <a onclick="showModal('Privacy', 'Read our privacy policy.')"><i class="fas fa-chevron-right"></i> Privacy Policy</a>
+                    <a onclick="showModal('Terms', 'Read our terms of service.')"><i class="fas fa-chevron-right"></i> Terms of Service</a>
+                    <a onclick="showModal('Refunds', 'Learn about our refund policy.')"><i class="fas fa-chevron-right"></i> Refund Policy</a>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Leagues</h3>
+                    <a onclick="showModal('Premier League', 'Watch Premier League matches.')"><i class="fas fa-chevron-right"></i> Premier League</a>
+                    <a onclick="showModal('La Liga', 'Watch La Liga matches.')"><i class="fas fa-chevron-right"></i> La Liga</a>
+                    <a onclick="showModal('Serie A', 'Watch Serie A matches.')"><i class="fas fa-chevron-right"></i> Serie A</a>
+                    <a onclick="showModal('Bundesliga', 'Watch Bundesliga matches.')"><i class="fas fa-chevron-right"></i> Bundesliga</a>
+                    <a onclick="showModal('Champions League', 'Watch Champions League matches.')"><i class="fas fa-chevron-right"></i> Champions League</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 FootStream. All rights reserved. This is a demonstration website only.</p>
             </div>
         </div>
     </footer>
@@ -646,11 +970,15 @@
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalMessage').textContent = message;
             document.getElementById('infoModal').style.display = 'flex';
+            
+            // Add a class to the iframe to prevent interactions
+            document.getElementById('streamFrame').classList.add('modal-open');
         }
         
         // Function to close modal
         function closeModal() {
             document.getElementById('infoModal').style.display = 'none';
+            document.getElementById('streamFrame').classList.remove('modal-open');
         }
         
         // Close modal when clicking outside the content
@@ -661,6 +989,13 @@
             }
         };
         
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+        
         // Prevent right-click context menu
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -668,14 +1003,4 @@
         
         // Prevent iframe from navigating parent
         const iframe = document.getElementById('streamFrame');
-        iframe.addEventListener('load', function() {
-            try {
-                // This will try to break out of any frame-busting scripts
-                iframe.contentWindow.location.href = iframe.contentWindow.location.href;
-            } catch (e) {
-                // Cross-origin frame, which is expected
-            }
-        });
-    </script>
-</body>
-</html>
+        if
